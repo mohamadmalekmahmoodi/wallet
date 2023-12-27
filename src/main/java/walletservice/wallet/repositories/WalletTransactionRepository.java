@@ -1,8 +1,7 @@
 package walletservice.wallet.repositories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import walletservice.wallet.entities.WalletEntity;
-import walletservice.wallet.entities.WalletTransactionEntity;
+import walletservice.wallet.entities.WalletTransaction;
 
-public interface WalletTransactionRepository extends JpaRepository<WalletTransactionEntity,Long> {
+public interface WalletTransactionRepository extends JpaRepository<WalletTransaction,Long> {
 }
