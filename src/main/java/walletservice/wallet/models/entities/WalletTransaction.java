@@ -2,6 +2,7 @@ package walletservice.wallet.models.entities;
 
 import jakarta.persistence.*;
 import lombok.*;
+import walletservice.wallet.models.entities.BaseEntity;
 
 import java.util.Date;
 
@@ -13,19 +14,17 @@ import java.util.Date;
 @AllArgsConstructor
 @Builder
 
-public class WalletTransactionEntity {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+public class WalletTransaction extends BaseEntity {
+
     private Long amount;
     private Date dateTime;
-    @Column(nullable = false)
-    private String description;
+    @Enumerated(value = EnumType.STRING)
+    private TransactionType transactionType;
     @Enumerated(EnumType.STRING)
     private TransactionStatus status;
     private Long userId;
-    @ManyToOne(targetEntity = WalletEntity.class,fetch = FetchType.EAGER,cascade = CascadeType.ALL)
-    @JoinColumn(name = "wallet_id")
+    @ManyToOne(targetEntity = Wallet.class,fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+    @JoinColumn(name = "WALLETID")
     private Long walletId;
 
 

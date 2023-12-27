@@ -1,12 +1,12 @@
 package walletservice.wallet.models.entities;
 
 public enum TransactionType {
-
-    QR_CODE,
     WALLET_TO_WALLET,
+    QR_CODE,
     AUTO_CHARGE,
+    WALLET_TO_CHARITY,
     WALLET_TO_BANK,
     BANK_TO_WALLET,
-    WALLET_TO_CHARITY
+
 
 }
