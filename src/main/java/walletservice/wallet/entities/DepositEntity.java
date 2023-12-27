@@ -10,7 +10,6 @@ import java.util.Date;
 @Setter
 @ToString
 @NoArgsConstructor
-@AllArgsConstructor
 public class DepositEntity extends WalletTransactionEntity{
 
 
