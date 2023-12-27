@@ -1,7 +1,8 @@
-package walletservice.wallet.entities;
+package walletservice.wallet.models.entities;
 
 import jakarta.persistence.*;
 import lombok.*;
+import walletservice.wallet.models.entities.BaseEntity;
 
 import java.util.Date;
 

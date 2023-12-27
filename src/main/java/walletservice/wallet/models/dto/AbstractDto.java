@@ -1,24 +1,19 @@
-package walletservice.wallet.entities;
+package walletservice.wallet.models.dto;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Id;
 import lombok.Data;
+import org.springframework.boot.autoconfigure.liquibase.LiquibaseDataSource;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
 import java.util.Date;
-import java.util.UUID;
-
 @Data
-@MappedSuperclass
-public class BaseEntity {
-    @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
+public class AbstractDto {
+
     private String id;
     @CreatedDate
-    private Date insertDate;
+    private Date insetDate;
     @LastModifiedDate
     private Date lastModifiedDate;
-    @Version
-    private int version;
 
 }

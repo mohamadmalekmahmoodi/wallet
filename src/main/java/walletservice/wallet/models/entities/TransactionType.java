@@ -1,4 +1,4 @@
-package walletservice.wallet.entities;
+package walletservice.wallet.models.entities;
 
 public enum TransactionType {
     WALLET_TO_WALLET,
