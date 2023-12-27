@@ -8,7 +8,7 @@ import lombok.*;
 @Setter
 @ToString
 @NoArgsConstructor
-@AllArgsConstructor
+
 public class WithdrawEntity extends WalletTransactionEntity{
 
 }
