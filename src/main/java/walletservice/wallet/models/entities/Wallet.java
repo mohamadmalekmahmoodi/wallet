@@ -8,7 +8,6 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
-@ToString
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -17,8 +16,11 @@ public class Wallet extends BaseEntity{
     private List<WalletTransaction> walletTransaction;
     @Column(nullable = false)
     private Long balance;
-    private Long walletCode;
-    private String status;
+    @Column(unique = true)
+    private String walletCode;
+    @Enumerated(value = EnumType.STRING)
+    private WalletStatus status;
+    public String phoneNumber;
 
 
 }
