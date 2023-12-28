@@ -1,8 +1,6 @@
 package walletservice.wallet.models.dto;
 
-import jakarta.persistence.Id;
 import lombok.Data;
-import org.springframework.boot.autoconfigure.liquibase.LiquibaseDataSource;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 

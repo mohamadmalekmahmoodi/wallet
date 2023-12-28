@@ -2,7 +2,6 @@ package walletservice.wallet.models.entities;
 
 import jakarta.persistence.*;
 import lombok.*;
-import walletservice.wallet.models.entities.BaseEntity;
 
 import java.util.Date;
 
@@ -12,7 +11,6 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-
 public class WalletTransaction extends BaseEntity {
 
     private Long amount;

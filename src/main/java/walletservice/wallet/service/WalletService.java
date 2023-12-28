@@ -1,9 +1,10 @@
 package walletservice.wallet.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import walletservice.wallet.models.dto.request.WalletDto;
 import walletservice.wallet.models.entities.Wallet;
 import walletservice.wallet.models.entities.WalletStatus;
+import walletservice.wallet.models.entities.WalletTransaction;
 import walletservice.wallet.repositories.WalletRepository;
 
 import java.util.Random;
@@ -11,6 +12,8 @@ import java.util.Random;
 
 @Service
 public class WalletService extends AbstractService<Wallet, WalletRepository> {
+    @Autowired
+    private WalletTransactionService walletTransactionService;
     public Wallet createWallet(String phoneNumber) {
         return repository.save(Wallet.builder()
                 .walletCode(generateWalletCode(phoneNumber))
@@ -30,7 +33,19 @@ public class WalletService extends AbstractService<Wallet, WalletRepository> {
                 .limit(targetStringLength)
                 .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
                 .toString();
-
         return   generatedString+phoneNumber ;
     }
+
+
+    public Wallet showBalance(String id){
+        WalletTransaction walletTransaction = new WalletTransaction();
+
+        Long walletId = walletTransaction.getWalletId();
+        if (walletId == null){
+
+        }
+        return null;
+    }
+
+
 }

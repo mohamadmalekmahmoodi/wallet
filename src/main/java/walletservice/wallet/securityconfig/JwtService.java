@@ -21,7 +21,7 @@ public class JwtService {
 
     }
 
-    public UserDetails getAllClaimsFromToken(String token)  {
+    public UserDetails getAllClaimsFromToken(String token) throws ServiceException {
         if (token.startsWith("Bearer ")) {
             token = token.substring(8);
         }

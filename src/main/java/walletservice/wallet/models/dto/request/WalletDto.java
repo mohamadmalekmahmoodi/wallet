@@ -1,6 +1,7 @@
 package walletservice.wallet.models.dto.request;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -8,6 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class WalletDto {
     private Long balance;
+    @NotNull(message = "wallet.walletCode.null")
     private String walletCode;
     private String phoneNumber;
 }
