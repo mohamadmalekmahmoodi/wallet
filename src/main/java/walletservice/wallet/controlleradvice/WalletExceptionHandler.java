@@ -24,7 +24,6 @@ import java.util.Properties;
 public class WalletExceptionHandler {
     private static final String LOCALE = "exceptions_fa_IR.properties";
 
-
     @PostConstruct
     public void init() throws IOException {
         Properties properties = new Properties();

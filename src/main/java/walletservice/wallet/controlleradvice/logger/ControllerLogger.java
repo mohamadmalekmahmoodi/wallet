@@ -55,7 +55,6 @@ public class ControllerLogger {
     }
 
 
-
     @Pointcut("within(walletservice.wallet.service.*)")
     public void serviceMethods(){}
 
@@ -65,7 +64,7 @@ public class ControllerLogger {
     }
 
 
-    @Around("within(walletservice.wallet.controlleradvice+)")
+    @Around("within(walletservice.wallet.controlleradvice.*)")
     public Object exceptionHandler(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
         LogDocument exceptionLog = new LogDocument();
         exceptionLog.setMethodName(proceedingJoinPoint.getSignature().getName());
