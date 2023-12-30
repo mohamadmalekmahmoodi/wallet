@@ -18,6 +18,7 @@ public class Wallet extends BaseEntity{
     private String walletCode;
     @Enumerated(value = EnumType.STRING)
     private WalletStatus status;
+    @Column(unique = true)
     private String phoneNumber;
     @OneToMany(mappedBy = "walletId",targetEntity = WalletTransaction.class,fetch = FetchType.EAGER,cascade = CascadeType.ALL)
     private List<WalletTransaction> walletTransaction;

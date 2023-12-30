@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class WalletDto {
     private Long balance;
-    @NotNull(message = "wallet.walletCode.null")
+    @NotNull(message = "wallet-walletCode-null")
     private String walletCode;
     private String phoneNumber;
 }

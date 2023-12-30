@@ -2,7 +2,6 @@ package walletservice.wallet.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import walletservice.wallet.controlleradvice.exception.ServiceException;
 import walletservice.wallet.models.entities.Wallet;
 import walletservice.wallet.models.entities.WalletStatus;
 import walletservice.wallet.models.entities.WalletTransaction;
@@ -35,7 +34,7 @@ public class WalletService extends AbstractService<Wallet, WalletRepository> {
                 .limit(targetStringLength)
                 .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
                 .toString();
-        return generatedString + phoneNumber;
+        return   generatedString+phoneNumber ;
     }
 
 
