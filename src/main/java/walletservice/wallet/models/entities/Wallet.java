@@ -20,6 +20,7 @@ public class Wallet extends BaseEntity{
     private String walletCode;
     @Enumerated(value = EnumType.STRING)
     private WalletStatus status;
+    @Column(unique = true)
     public String phoneNumber;
 
 

@@ -7,4 +7,5 @@ import walletservice.wallet.repositories.WalletTransactionRepository;
 @Service
 public class WalletTransactionService extends AbstractService<WalletTransaction, WalletTransactionRepository>{
 
+
 }

@@ -23,7 +23,4 @@ public class WalletTransaction extends BaseEntity {
     @ManyToOne(targetEntity = Wallet.class,fetch = FetchType.EAGER,cascade = CascadeType.ALL)
     @JoinColumn(name = "WALLETID")
     private Long walletId;
-
-
-
 }
