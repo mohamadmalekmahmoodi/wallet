@@ -37,15 +37,15 @@ public class WalletService extends AbstractService<Wallet, WalletRepository> {
     }
 
 
-    public Wallet showBalance(String id){
-        WalletTransaction walletTransaction = new WalletTransaction();
-
-        Long walletId = walletTransaction.getWalletId();
-        if (walletId == null){
-
-        }
-        return null;
-    }
+//    public Wallet showBalance(String id){
+//        WalletTransaction walletTransaction = new WalletTransaction();
+//
+//        Long walletId = walletTransaction.getWalletId();
+//        if (walletId == null){
+//
+//        }
+//        return null;
+//    }
 
 
 }
