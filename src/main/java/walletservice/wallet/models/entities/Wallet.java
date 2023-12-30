@@ -12,8 +12,6 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 public class Wallet extends BaseEntity{
-    @OneToMany(mappedBy = "walletId",targetEntity = WalletTransaction.class,fetch = FetchType.EAGER,cascade = CascadeType.ALL)
-    private List<WalletTransaction> walletTransaction;
     @Column(nullable = false)
     private Long balance;
     @Column(unique = true)
@@ -21,7 +19,9 @@ public class Wallet extends BaseEntity{
     @Enumerated(value = EnumType.STRING)
     private WalletStatus status;
     @Column(unique = true)
-    public String phoneNumber;
+    private String phoneNumber;
+    @OneToMany(mappedBy = "walletId",targetEntity = WalletTransaction.class,fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+    private List<WalletTransaction> walletTransaction;
 
 
 }
