@@ -23,4 +23,9 @@ public class WalletController extends AbstractController<WalletDto, Wallet, Wall
     public WalletDto createWalletTest(@RequestBody WalletDto dto) {
         return adapter.convertEntity(service.createWallet(dto.getPhoneNumber()));
     }
+
+    @GetMapping("/getBalance")
+    public Long getBalance(@RequestBody WalletDto dto) throws ServiceException {
+        return service.showBalance(dto.getPhoneNumber());
+    }
 }
