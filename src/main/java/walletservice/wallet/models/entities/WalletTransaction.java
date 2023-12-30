@@ -29,5 +29,4 @@ public class WalletTransaction extends BaseEntity {
     private DepositWithdraw depositWithdraw;
 
 
-
 }

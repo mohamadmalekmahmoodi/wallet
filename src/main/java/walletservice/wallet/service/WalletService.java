@@ -2,6 +2,7 @@ package walletservice.wallet.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import walletservice.wallet.controlleradvice.exception.ServiceException;
 import walletservice.wallet.models.entities.Wallet;
 import walletservice.wallet.models.entities.WalletStatus;
 import walletservice.wallet.models.entities.WalletTransaction;
@@ -14,6 +15,7 @@ import java.util.Random;
 public class WalletService extends AbstractService<Wallet, WalletRepository> {
     @Autowired
     private WalletTransactionService walletTransactionService;
+
     public Wallet createWallet(String phoneNumber) {
         return repository.save(Wallet.builder()
                 .walletCode(generateWalletCode(phoneNumber))
@@ -37,15 +39,18 @@ public class WalletService extends AbstractService<Wallet, WalletRepository> {
     }
 
 
-//    public Wallet showBalance(String id){
-//        WalletTransaction walletTransaction = new WalletTransaction();
-//
-//        Long walletId = walletTransaction.getWalletId();
-//        if (walletId == null){
-//
-//        }
-//        return null;
-//    }
-
+    public Long showBalance(String phoneNumber) throws ServiceException {
+        if (phoneNumber.isEmpty()) {
+            throw new ServiceException("phone-number-null");
+        }
+        Wallet wallet = repository.findByPhoneNumber(phoneNumber);
+        if (wallet == null) {
+            throw new ServiceException("wallet-not-available");
+        }
+        if (!phoneNumber.equals(wallet.getPhoneNumber())) {
+            throw new ServiceException("phoneNumber-not-found");
+        }
+        return wallet.getBalance();
+    }
 
 }
