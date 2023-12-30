@@ -9,13 +9,14 @@ import walletservice.wallet.repositories.WalletRepository;
 import walletservice.wallet.repositories.WalletTransactionRepository;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 public class WalletTransactionService extends AbstractService<WalletTransaction, WalletTransactionRepository> {
     @Autowired
     private WalletRepository walletRepository;
 
-    public void deposit(Wallet receiverWallet, Long amount, TransactionType transactionType) throws ServiceException {
+    public void deposit(Wallet receiverWallet, Long amount) throws ServiceException {
         if (receiverWallet == null) {
             throw new ServiceException("wallet-not-found");
         }
@@ -23,7 +24,7 @@ public class WalletTransactionService extends AbstractService<WalletTransaction,
         walletRepository.save(receiverWallet);
     }
 
-    public void withdraw(Wallet senderWallet, Long amount, TransactionType transactionType) throws ServiceException {
+    public void withdraw(Wallet senderWallet, Long amount) throws ServiceException {
         if (senderWallet.getBalance() > amount) {
             senderWallet.setBalance(senderWallet.getBalance()-amount);
         } else throw new ServiceException("not-enough-balance");
@@ -57,10 +58,10 @@ public class WalletTransactionService extends AbstractService<WalletTransaction,
         }
 
         if (senderWallet.getPhoneNumber().equals(phoneNumber)) {
-            withdraw(senderWallet, amount, transactionType);
+            withdraw(senderWallet, amount);
             WalletTransaction withdrawTransaction = setWalletTransaction(senderWallet, amount, DepositWithdraw.WITHDRAW, transactionType);
 
-            deposit(recieverWallet, amount, transactionType);
+            deposit(recieverWallet, amount);
             WalletTransaction depositTransaction = setWalletTransaction(recieverWallet, amount, DepositWithdraw.DEPOSIT, transactionType);
 
             withdrawTransaction.setStatus(TransactionStatus.SUCCESS);
@@ -73,6 +74,17 @@ public class WalletTransactionService extends AbstractService<WalletTransaction,
             throw new ServiceException("phoneNumber-not-found");
         }
         return TransactionStatus.FAILED;
+    }
+    public List<WalletTransaction> ShowTransaction(String phoneNumber) throws ServiceException {
+        if (phoneNumber == null){
+            throw new ServiceException("phoneNumber-not-found");
+        }
+        Wallet wallet=walletRepository.findByPhoneNumber(phoneNumber);
+        if (wallet== null) {
+            throw new ServiceException("wallet-not-found");
+        }
+        return repository.findAllByWalletId(wallet);
+
     }
 }
 
