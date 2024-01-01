@@ -11,6 +11,7 @@ import walletservice.wallet.service.WalletService;
 @RestController
 @RequestMapping("/wallet")
 public class WalletController extends AbstractController<WalletDto, Wallet, WalletService> {
+
     @Autowired
     private JwtService jwtService;
 
@@ -27,5 +28,9 @@ public class WalletController extends AbstractController<WalletDto, Wallet, Wall
     @GetMapping("/getBalance")
     public Long getBalance(@RequestBody WalletDto dto) throws ServiceException {
         return service.showBalance(dto.getPhoneNumber());
+    }
+    @DeleteMapping("/delete/{phoneNumber}")
+    public void removeWallet(@PathVariable String phoneNumber) throws ServiceException {
+        service.removeWallet(phoneNumber);
     }
 }
