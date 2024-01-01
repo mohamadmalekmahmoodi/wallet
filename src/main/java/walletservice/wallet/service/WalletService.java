@@ -7,7 +7,11 @@ import walletservice.wallet.models.entities.Wallet;
 import walletservice.wallet.models.entities.WalletStatus;
 import walletservice.wallet.models.entities.WalletTransaction;
 import walletservice.wallet.repositories.WalletRepository;
+import walletservice.wallet.repositories.WalletTransactionRepository;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 
@@ -35,7 +39,7 @@ public class WalletService extends AbstractService<Wallet, WalletRepository> {
                 .limit(targetStringLength)
                 .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
                 .toString();
-        return   generatedString+phoneNumber ;
+        return generatedString + phoneNumber;
     }
 
 
@@ -52,5 +56,10 @@ public class WalletService extends AbstractService<Wallet, WalletRepository> {
         }
         return wallet.getBalance();
     }
+
+    public Wallet getWallet(String walletCode) {
+        return repository.findByWalletCode(walletCode);
+    }
+
 
 }
