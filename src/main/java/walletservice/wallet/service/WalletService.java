@@ -29,6 +29,18 @@ public class WalletService extends AbstractService<Wallet, WalletRepository> {
                 .build());
     }
 
+
+    public void removeWallet(String phoneNumber) throws ServiceException {
+        if (phoneNumber == null){
+            throw new ServiceException("phoneNumber-is-null");
+        }
+        Wallet wallet = repository.findByPhoneNumber(phoneNumber);
+        repository.deleteById(wallet.getId());
+        if (!phoneNumber.equals(wallet.getPhoneNumber())){
+            throw new ServiceException("phoneNumber-not-found");
+        }
+    }
+
     private String generateWalletCode(String phoneNumber) {
         int leftLimit = 97; // letter 'a'
         int rightLimit = 122; // letter 'z'
