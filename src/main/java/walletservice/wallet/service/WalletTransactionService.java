@@ -1,5 +1,6 @@
 package walletservice.wallet.service;
 
+import jakarta.transaction.Transaction;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -8,7 +9,9 @@ import walletservice.wallet.models.entities.*;
 import walletservice.wallet.repositories.WalletRepository;
 import walletservice.wallet.repositories.WalletTransactionRepository;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -26,7 +29,7 @@ public class WalletTransactionService extends AbstractService<WalletTransaction,
 
     public void withdraw(Wallet senderWallet, Long amount) throws ServiceException {
         if (senderWallet.getBalance() > amount) {
-            senderWallet.setBalance(senderWallet.getBalance()-amount);
+            senderWallet.setBalance(senderWallet.getBalance() - amount);
         } else throw new ServiceException("not-enough-balance");
 
         walletRepository.save(senderWallet);
@@ -41,7 +44,7 @@ public class WalletTransactionService extends AbstractService<WalletTransaction,
                 .depositWithdraw(depositWithdraw)
                 .transactionType(transactionType)
                 .phoneNumber(wallet.getPhoneNumber())
-                .dateTime(LocalDateTime.now())
+                .date(LocalDate.now())
                 .status(TransactionStatus.PEND)
                 .build();
         insert(walletTransaction);
@@ -67,7 +70,7 @@ public class WalletTransactionService extends AbstractService<WalletTransaction,
             withdrawTransaction.setStatus(TransactionStatus.SUCCESS);
             depositTransaction.setStatus(TransactionStatus.SUCCESS);
 
-            if (withdrawTransaction.getStatus() == TransactionStatus.SUCCESS && depositTransaction.getStatus()==TransactionStatus.SUCCESS ){
+            if (withdrawTransaction.getStatus() == TransactionStatus.SUCCESS && depositTransaction.getStatus() == TransactionStatus.SUCCESS) {
                 return TransactionStatus.SUCCESS;
             }
         } else {
@@ -75,16 +78,33 @@ public class WalletTransactionService extends AbstractService<WalletTransaction,
         }
         return TransactionStatus.FAILED;
     }
-    public List<WalletTransaction> ShowTransaction(String phoneNumber) throws ServiceException {
-        if (phoneNumber == null){
+
+    public List<WalletTransaction> showTransaction(String phoneNumber) throws ServiceException {
+        if (phoneNumber == null) {
             throw new ServiceException("phoneNumber-not-found");
         }
-        Wallet wallet=walletRepository.findByPhoneNumber(phoneNumber);
-        if (wallet== null) {
+        Wallet wallet = walletRepository.findByPhoneNumber(phoneNumber);
+        if (wallet == null) {
             throw new ServiceException("wallet-not-found");
         }
         return repository.findAllByWalletId(wallet);
 
     }
-}
+
+    public List<WalletTransaction> showTransactionBetween(String phoneNumber, LocalDate startDate, LocalDate endDate) throws ServiceException {
+        if (!startDate.isBefore(endDate)) {
+            throw new ServiceException("date-not-valid");
+        }
+        List<WalletTransaction> walletTransactions = showTransaction(phoneNumber);
+        List<WalletTransaction> betweenTransaction = new ArrayList<>();
+        for (WalletTransaction walletTransaction : walletTransactions) {
+            if (walletTransaction.getDate().isAfter(startDate) && walletTransaction.getDate().isBefore(endDate)) {
+                betweenTransaction.add(walletTransaction);
+            }
+        }
+        return betweenTransaction;
+
+    }
+    }
+
 

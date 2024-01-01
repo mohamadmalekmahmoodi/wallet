@@ -32,15 +32,15 @@ public class WalletExceptionHandler {
         properties.load(in);
     }
 
-    @ExceptionHandler(ServiceException.class)
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public @ResponseBody ExceptionResponse handler(ServiceException serviceException){
-        return ExceptionResponse.builder()
-                .timeStamp(new Date())
-                .errorCode(55)
-                .message("error-system-exception")
-                .build();
-    }
+//    @ExceptionHandler(ServiceException.class)
+//    @ResponseStatus(HttpStatus.BAD_REQUEST)
+//    public @ResponseBody ExceptionResponse handler(ServiceException serviceException){
+//        return ExceptionResponse.builder()
+//                .timeStamp(new Date())
+//                .errorCode(55)
+//                .message("error-system-exception")
+//                .build();
+//    }
     @ExceptionHandler(IllegalArgumentException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public @ResponseBody ExceptionResponse handler(IllegalArgumentException illegalArgumentException){
