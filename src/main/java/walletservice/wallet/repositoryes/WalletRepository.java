@@ -1,10 +1,8 @@
-package walletservice.wallet.repositories;
+package walletservice.wallet.repositoryes;
 
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import walletservice.wallet.models.entities.Wallet;
-
-import java.time.LocalDateTime;
 
 public interface WalletRepository extends JpaRepository<Wallet,String> {
     Wallet findByWalletCode (String walletCode);

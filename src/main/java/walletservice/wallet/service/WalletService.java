@@ -5,13 +5,8 @@ import org.springframework.stereotype.Service;
 import walletservice.wallet.controlleradvice.exception.ServiceException;
 import walletservice.wallet.models.entities.Wallet;
 import walletservice.wallet.models.entities.WalletStatus;
-import walletservice.wallet.models.entities.WalletTransaction;
-import walletservice.wallet.repositories.WalletRepository;
-import walletservice.wallet.repositories.WalletTransactionRepository;
+import walletservice.wallet.repositoryes.WalletRepository;
 
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
 

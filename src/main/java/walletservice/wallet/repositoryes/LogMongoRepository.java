@@ -1,4 +1,4 @@
-package walletservice.wallet.repositories;
+package walletservice.wallet.repositoryes;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
 import walletservice.wallet.models.documents.LogDocument;

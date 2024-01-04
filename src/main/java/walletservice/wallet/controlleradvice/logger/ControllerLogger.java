@@ -12,7 +12,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import walletservice.wallet.models.documents.LogDocument;
-import walletservice.wallet.repositories.LogMongoRepository;
+import walletservice.wallet.repositoryes.LogMongoRepository;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
@@ -67,31 +67,31 @@ public class ControllerLogger {
 
 
 
-//    @Around("within(walletservice.wallet.controlleradvice.*)")
-//    public Object exceptionHandler(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
-//        LogDocument exceptionLog = new LogDocument();
-//        exceptionLog.setMethodName(proceedingJoinPoint.getSignature().getName());
-//        exceptionLog.setRequest(proceedingJoinPoint.getArgs());
-//        Object exValue = null;
-//        try {
-//            exValue = proceedingJoinPoint.proceed();
-//            if (exValue != null) {
-//                exceptionLog.setResponse(exValue);
-//            }
-//            logMongoRepository.save(exceptionLog);
-//            LOGGER.info("success request" + objectMapper.writeValueAsString(exceptionLog));
-//        } catch (Throwable e) {
-//            StringWriter writer = new StringWriter();
-//            PrintWriter printWriter = new PrintWriter(writer);
-//            e.printStackTrace(printWriter);
-//            writer.close();
-//            printWriter.close();
-//            exceptionLog.setErrorTrace(writer.toString());
-//            logMongoRepository.save(exceptionLog);
-//            LOGGER.error("fail request " + objectMapper.writeValueAsString(exValue));
-//            throw e;
-//        }
-//        return exValue;
-//    }
-//
+    @Around("within(walletservice.wallet.controlleradvice.*)")
+    public Object exceptionHandler(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
+        LogDocument exceptionLog = new LogDocument();
+        exceptionLog.setMethodName(proceedingJoinPoint.getSignature().getName());
+        exceptionLog.setRequest(proceedingJoinPoint.getArgs());
+        Object exValue = null;
+        try {
+            exValue = proceedingJoinPoint.proceed();
+            if (exValue != null) {
+                exceptionLog.setResponse(exValue);
+            }
+            logMongoRepository.save(exceptionLog);
+            LOGGER.info("success request" + objectMapper.writeValueAsString(exceptionLog));
+        } catch (Throwable e) {
+            StringWriter writer = new StringWriter();
+            PrintWriter printWriter = new PrintWriter(writer);
+            e.printStackTrace(printWriter);
+            writer.close();
+            printWriter.close();
+            exceptionLog.setErrorTrace(writer.toString());
+            logMongoRepository.save(exceptionLog);
+            LOGGER.error("fail request " + objectMapper.writeValueAsString(exValue));
+            throw e;
+        }
+        return exValue;
+    }
+
 }

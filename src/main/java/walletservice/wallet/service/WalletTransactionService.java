@@ -1,16 +1,14 @@
 package walletservice.wallet.service;
 
-import jakarta.transaction.Transaction;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import walletservice.wallet.controlleradvice.exception.ServiceException;
 import walletservice.wallet.models.entities.*;
-import walletservice.wallet.repositories.WalletRepository;
-import walletservice.wallet.repositories.WalletTransactionRepository;
+import walletservice.wallet.repositoryes.WalletRepository;
+import walletservice.wallet.repositoryes.WalletTransactionRepository;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
