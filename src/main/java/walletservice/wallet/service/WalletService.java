@@ -5,20 +5,21 @@ import org.springframework.stereotype.Service;
 import walletservice.wallet.controlleradvice.exception.ServiceException;
 import walletservice.wallet.models.entities.Wallet;
 import walletservice.wallet.models.entities.WalletStatus;
-import walletservice.wallet.models.entities.WalletTransaction;
 import walletservice.wallet.repositories.WalletRepository;
 import walletservice.wallet.repositories.WalletTransactionRepository;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import walletservice.wallet.feign.AutoChargeFeignUtil;
 import java.util.Random;
-
 
 @Service
 public class WalletService extends AbstractService<Wallet, WalletRepository> {
     @Autowired
     private WalletTransactionService walletTransactionService;
+    @Autowired
+    private AutoChargeFeignUtil autoChargeFeignUtil;
 
     public Wallet createWallet(String phoneNumber) {
         return repository.save(Wallet.builder()
@@ -32,7 +33,7 @@ public class WalletService extends AbstractService<Wallet, WalletRepository> {
 
     public void removeWallet(String phoneNumber) throws ServiceException {
         if (phoneNumber == null){
-            throw new ServiceException("phoneNumber-is-null");
+            throw new ServiceException("phone-number-null");
         }
         Wallet wallet = repository.findByPhoneNumber(phoneNumber);
         repository.deleteById(wallet.getId());
