@@ -1,5 +1,6 @@
 package walletservice.wallet.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import walletservice.wallet.controlleradvice.exception.ServiceException;
@@ -16,7 +17,7 @@ public class WalletController extends AbstractController<WalletDto, Wallet, Wall
     private JwtService jwtService;
 
     @PostMapping("/create")
-    public WalletDto createWallet(@RequestHeader String token) throws ServiceException {
+    public WalletDto createWallet(@RequestHeader String token) throws ServiceException, JsonProcessingException {
         return adapter.convertEntity(service.createWallet(jwtService.getAllClaimsFromToken(token).getPhoneNumber()));
     }
 

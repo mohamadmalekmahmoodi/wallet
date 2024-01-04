@@ -53,8 +53,6 @@ public class ControllerLogger {
         }
         return rstValue;
     }
-
-
     @Pointcut("within(walletservice.wallet.service.*)")
     public void serviceMethods(){}
 
