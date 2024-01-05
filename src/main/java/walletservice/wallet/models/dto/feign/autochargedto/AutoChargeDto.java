@@ -7,6 +7,7 @@ import lombok.Data;
 @AllArgsConstructor
 public class AutoChargeDto {
     private String phoneNumber;
+    private Long balanceCeiling;
     private String walletId;
     private Long chargeAmount;
     private CardDto cardDto;

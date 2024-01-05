@@ -34,5 +34,9 @@ public class WalletTransactionController extends AbstractController<WalletTransa
     public List<WalletTransactionDtoResp> showTransactionBetween(@RequestBody WalletBetweenDto dto) throws ServiceException {
         return walletTransactionRespConvertor.convertEntity(service.showTransactionBetween(dto.getPhoneNumber(), dto.getStartDate(), dto.getEndDate()));
     }
+    @PostMapping("/autoCharge")
+    public void autoCharge (@RequestHeader String token) throws ServiceException {
+        service.autoChargeDeposit(token);
+    }
 }
 

@@ -1,21 +1,16 @@
 package walletservice.wallet.securityconfig;
 
-import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.annotation.PostConstruct;
 import lombok.extern.slf4j.Slf4j;
-import org.bson.json.JsonObject;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 import walletservice.wallet.controlleradvice.exception.ServiceException;
 import walletservice.wallet.models.dto.UserDetails;
-import walletservice.wallet.models.dto.feign.Payload;
 
-import java.io.IOException;
 import java.util.Base64;
 
 //@Service

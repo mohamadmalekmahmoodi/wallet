@@ -4,6 +4,10 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import walletservice.wallet.controlleradvice.exception.ServiceException;
+import walletservice.wallet.feign.AutoChargeFeignUtil;
+import walletservice.wallet.feign.WalletCheckToken;
+import walletservice.wallet.models.dto.feign.autochargedto.AutoChargeDto;
+import walletservice.wallet.models.dto.feign.walletcall.TokenValidityResponseDto;
 import walletservice.wallet.models.entities.*;
 import walletservice.wallet.repositories.WalletRepository;
 import walletservice.wallet.repositories.WalletTransactionRepository;
@@ -16,6 +20,10 @@ import java.util.List;
 public class WalletTransactionService extends AbstractService<WalletTransaction, WalletTransactionRepository> {
     @Autowired
     private WalletRepository walletRepository;
+    @Autowired
+    private AutoChargeFeignUtil autoChargeFeignUtil;
+    @Autowired
+    private WalletCheckToken walletCheckToken;
 
     public void deposit(Wallet receiverWallet, Long amount) throws ServiceException {
         if (receiverWallet == null) {
@@ -102,6 +110,18 @@ public class WalletTransactionService extends AbstractService<WalletTransaction,
         }
         return betweenTransaction;
 
+    }
+
+    public void autoChargeDeposit(String token) throws ServiceException {
+        TokenValidityResponseDto tokenValidityResponseDto = walletCheckToken.checkTokenValidity(token);
+        Wallet wallet = walletRepository.findByPhoneNumber(tokenValidityResponseDto.getUsername());
+        if (wallet == null) {
+            throw new ServiceException("wallet-not-found");
+        }
+        AutoChargeDto autoChargeDto = autoChargeFeignUtil.depositAutoCharge(token, wallet.getWalletCode());
+        if (wallet.getBalance() < autoChargeDto.getBalanceCeiling()) {
+            deposit(wallet, autoChargeDto.getChargeAmount());
+        }
     }
     }
 
